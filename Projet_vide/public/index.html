@@ -1,35 +1,66 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>WebMobUI</title>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons" />
-    <link rel="stylesheet" href="main.css" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+  <title>WebMobUI</title>
 
-    <script src="main.js"></script>
-  </head>
-  <body>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons" />
+  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <header>
-      <h1>Logo</h1>
-      <span class="material-icons">face</span>
-    </header>
+  <script src="main.js"></script>
+</head>
 
-    <main>
+<body>
+
+  <header>
+    <h1><span class="fa fa-spotify"></span></h1>
+    <span class="material-icons">search</span>
+  </header>
+
+  <main>
+    <section id="home">
       <section>
-        <h2>Bienvenue</h2>
-
+        <h2>Bienvenue sur Spotlified</h2>
       </section>
-    </main>
+      <section>
+        <h3>Playlists</h3>
+        <section id="playlist-buttons">
+          <a class="button" href="#">Motivation</a>
+          <a class="button" href="#">Chillectro</a>
+          <a class="button" href="#">Pardy pardy</a>
+          <a class="button" href="#">Shake ton booty</a>
+        </section>
+      </section>
+      <section id="songs-button">
+        <a class="button song-button" href="#">Vers les chansons</a>
+      </section>
+    </section>
+    <section id="player">
+      <section class="thumbnail">
+        
+      </section>
+    </section>
+  </main>
 
-    <footer>
-      <nav>
-        <a href="#">Home</a>
-        <a href="#">Player</a>
-        <a href="#">Songs</a>
-        <a href="#">Playlist</a>
-      </nav>
-    </footer>
-  </body>
+  <footer>
+    <nav>
+      <a class="current" href="#"><span class="material-icons">
+          home
+        </span></a>
+      <a class="" href="#"><span class="material-icons">
+          play_circle_filled
+        </span></a>
+      <a class="" href="#"><span class="material-icons">
+          library_music
+        </span></a>
+      <a class="" href="#"><span class="material-icons">
+          queue_music
+        </span></a>
+    </nav>
+  </footer>
+</body>
+
 </html>

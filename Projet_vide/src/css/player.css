@@ -1,0 +1,4 @@
+.thumbnail {
+    width: calc(100px * 1vw);
+    height: calc(100px * 1vw);
+}
