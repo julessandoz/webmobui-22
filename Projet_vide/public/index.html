@@ -7,6 +7,7 @@
   <title>WebMobUI</title>
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons" />
+  
   <link rel="stylesheet" href="main.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -21,26 +22,40 @@
   </header>
 
   <main>
+    <!-- HOME PAGE -->
     <section id="home">
-      <section>
+      <div>
         <h2>Bienvenue sur Spotlified</h2>
-      </section>
-      <section>
+      </div>
+      <div>
         <h3>Playlists</h3>
-        <section id="playlist-buttons">
+        <div id="playlist-buttons">
           <a class="button" href="#">Motivation</a>
           <a class="button" href="#">Chillectro</a>
           <a class="button" href="#">Pardy pardy</a>
           <a class="button" href="#">Shake ton booty</a>
-        </section>
-      </section>
-      <section id="songs-button">
+        </div>
+      </div>
+      <div id="songs-button">
         <a class="button song-button" href="#">Vers les chansons</a>
-      </section>
+      </div>
     </section>
+
+     <!-- PLAYER PAGE -->
     <section id="player">
-      <section class="thumbnail">
-        
+      <div class="thumbnail">
+        <img src="https://via.placeholder.com/350x350" alt="">
+      </div>
+      <section id="player-buttons">
+        <button class="button button-back"><span class="material-icons">
+          skip_previous
+          </span></button>
+        <button class="button button-play"><span class="material-icons-round">
+          play_arrow
+          </span></button>
+        <button class="button button-next"><span class="material-icons">
+          skip_next
+          </span></button>
       </section>
     </section>
   </main>
