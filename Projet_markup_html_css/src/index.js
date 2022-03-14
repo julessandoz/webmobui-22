@@ -34,50 +34,128 @@ async function fetchQuery(url) {
 }
 /* ** PLAYER ** */
 // VARIABLES //
-const player = document.getElementById("audio-player");
+// Tag audio
+const audioPlayer = document.querySelector('#audio-player')
+
+// Song infos
+const playerThumbnail = document.querySelector('#player-thumbnail-image')
+const playerSongTitle = document.querySelector('#player-infos-song-title')
+const playerArtistName = document.querySelector('#player-infos-artist-name')
+
+// Controls
+const playerPrev = document.querySelector('#player-control-previous')
+const playerPlay = document.querySelector('#player-control-play')
+const playerPlayIcon = document.querySelector('#player-control-play .material-icons')
+const playerNext = document.querySelector('#player-control-next')
+
+// Progress
+const playerTimeCurrent = document.querySelector('#player-time-current')
+const playerTimeDuration = document.querySelector('#player-time-duration')
+const playerProgress = document.querySelector('#player-progress-bar')
+
+// Logo
+const logo = document.querySelector('#logo')
 
 // DOM AND EVENTS CONTROL //
 document.querySelector('#player-progress-bar').addEventListener('change', advancePlayer)
-player.addEventListener('play', changeIcon)
-player.addEventListener('ended', nextSong)
-player.addEventListener('durationchange', updateMaxValSlider)
-player.addEventListener('timeupdate', updateValSlider)
+audioPlayer.addEventListener('play', changeIcon)
+audioPlayer.addEventListener('ended', playNextSong)
+audioPlayer.addEventListener('durationchange', updateMaxValSlider)
+audioPlayer.addEventListener('timeupdate', updateValSlider)
 // document.querySelector('#player-control-play').addEventListener('click', changeIcon);
 
 // FUNCTIONS //
-function togglePlayPause() {
-  if (player.paused)
-    player.play()
-  else
-    player.pause()
+function renderSong(song, songs) {
+  const newSong = songListItemTemplate.content.cloneNode(true) // true pour cloner également les enfants du node
+  newSong.querySelector('.list-item-title').innerText = song.title
+  newSong.querySelector('.play-button').addEventListener('click', () => {
+    playSong(song, songs)
+    window.location.hash = '#player'
+  })
+  songList.append(newSong)
 }
 
-function playSong(song, nextSongs){
-  player.src = song.audio_url;
-  player.play();
+function renderSongs(songs) {
+  // On vide la liste
+  songList.replaceChildren()
+
+  // On regarde s'il y a des résultats, dans le cas échéant, on affiche un élément simple avec le texte "Aucun résultat"
+  if (songs.length) {
+    // On itère sur chaque élément
+    for (const song of songs) {
+      renderSong(song, songs)
+    }
+  } else {
+    const noResults = songListItemTemplate.content.cloneNode(true) // true pour cloner également les enfants du node
+    noResults.querySelector('.list-item-title').innerText = 'Aucun résultat'
+    noResults.querySelector('.list-item-actions').remove() // on supprime les boutons
+    songList.append(noResults)
+  }
+}
+
+function togglePlayPause() {
+  if (audioPlayer.paused)
+    audioPlayer.play()
+  else
+    audioPlayer.pause()
+}
+
+function playSong(song, songs) {
+  // On enregistre la chanson en cours de lecture
+  currentSong = song
+
+  // si un tableau est transmis, on le met à jour. Cela nous permet d'utiliser juste playSong(song) à l'interne,
+  // sans devoir le repasser à chaque fois (depuis previous/next, par exemple)
+  if (songs)
+    songList = songs
+
+  // On donne l'url au player et démarre la lecture
+  audioPlayer.src = song.audio_url
+  audioPlayer.play()
+
+  // Remplacement des différentes informations au sein des tags
+  playerSongTitle.innerHTML = song.title
+  playerArtistName.innerHTML = song.artist.name
+  playerThumbnail.src = song.artist.image_url
 }
 
 function advancePlayer() {
-  
+
 }
 
-function updateValSlider(){
+function updateValSlider() {
 
 }
 
 function updateMaxValSlider() {
-  
+
 }
 
-function nextSong(){
+function playNextSong() {
+  const index = songList.indexOf(currentSong)
+  const newIndex = index + 1
+  // On s'assure qu'on n'arrive jamais en dehors du tableau et on reboucle sur le début
+  if (newIndex < songList.length)
+    playSong(songList[newIndex])
+  else
+    playSong(songList[0])
+}
 
+function playPreviousSong() {
+  const index = songList.indexOf(currentSong)
+  const newIndex = index - 1
+  // On s'assure qu'on n'arrive jamais en dehors du tableau et on reboucle sur la fin
+  if (newIndex >= 0)
+    playSong(songList[newIndex])
+  else
+    playSong(songList[songList.length - 1])
 }
 
 function changeTimestamp(event) {
-  player.currentTime = event.currentTarget.value
+  audioPlayer.currentTime = event.currentTarget.value
 }
 
-function changeIcon(){
+function changeIcon() {
   let currentStatus = document.querySelector("#player-control-play .material-icons");
   // console.log(currentStatus)
   switch (currentStatus.textContent) {
