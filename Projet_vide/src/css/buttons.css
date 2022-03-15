@@ -25,3 +25,11 @@ button.icon-button:hover .material-icons {
   /* on change la couleur au survol */
   color: var(--primary-color);
 }
+
+button#favorite {
+  position: relative;
+  background-color: transparent;
+  border: none;
+  width: auto;
+}
+

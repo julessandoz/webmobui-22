@@ -1,4 +1,5 @@
 import formatTimestamp from '../lib/formatTimestamp'
+import {toggleFavorite, checkFavorite, getFavorites} from './favorites'
 
 ////////// Constantes des différents tags HTML
 // Tag audio
@@ -8,6 +9,9 @@ const audioPlayer = document.querySelector('#audio-player')
 const playerThumbnail = document.querySelector('#player-thumbnail-image')
 const playerSongTitle = document.querySelector('#player-infos-song-title')
 const playerArtistName = document.querySelector('#player-infos-artist-name')
+
+// Player favorite button
+const favButton = document.querySelector('#favorite');
 
 // Controls
 const playerPrev = document.querySelector('#player-control-previous')
@@ -40,6 +44,8 @@ function playSong(song, songs) {
   // On enregistre la chanson en cours de lecture
   currentSong = song
 
+  checkFavorite(song.id)? favButton.querySelector('span').textContent = 'favorite' : favButton.querySelector('span').textContent = 'favorite_border'
+  
   // si un tableau est transmis, on le met à jour. Cela nous permet d'utiliser juste playSong(song) à l'interne,
   // sans devoir le repasser à chaque fois (depuis previous/next, par exemple)
   if(songs)
@@ -53,6 +59,8 @@ function playSong(song, songs) {
   playerSongTitle.innerHTML = song.title
   playerArtistName.innerHTML = song.artist.name
   playerThumbnail.src = song.artist.image_url
+  favButton.setAttribute('data-song-id', song.id);
+  favButton.setAttribute('data-song-info', JSON.stringify(song));
 }
 
 // Lis la chanson suivante, d'après la chanson en cours

@@ -1,8 +1,10 @@
-import './css/index.css'
-import { domOn, domForEach } from './lib/domManipulator'
+import './css/index.css';
+import { domOn, domForEach } from './lib/domManipulator';
+import {toggleFavorite, checkFavorite, getFavorites} from './sections/favorites'
 
-import renderArtistsSection from './sections/artists'
-import { renderSongsSection, renderSearchSongsSection } from './sections/songs'
+import renderArtistsSection from './sections/artists';
+import { renderSongsSection, renderSearchSongsSection, renderFavoritesSection } from './sections/songs';
+import JsonStorage from './lib/JsonStorage';
 
 // On les importe au moins une fois dans l'index, pour être sûr que les eventlisteners seront appelés
 import './sections/player'
@@ -21,6 +23,9 @@ function toggleNav(section) {
 }
 
 // Affichage d'une section
+/**
+ * It takes the hash from the URL and displays the corresponding section
+ */
 function displaySection() {
   // S'il n'y a pas de hash (par ex, on est sur "localhost:8080/"), le défaut devient '#home'
   const section = window.location.hash || '#home'
@@ -50,6 +55,8 @@ function displaySection() {
       // on décode la chaine de recherche pour l'afficher proprement
       renderSearchSongsSection(decodeURIComponent(sectionSplit[1]))
     break;
+    case '#list':
+      getFavorites()
   }
 }
 
@@ -58,3 +65,18 @@ window.addEventListener('hashchange', displaySection)
 
 // Affichage au chargement pour traiter l'url en cours (exemple: on ouvre un lien dans un nouvel onglet)
 displaySection()
+
+
+
+const favButtonPlayer = document.querySelector('#favorite')
+
+domOn('#songs-section', 'click', evt =>{
+  if (evt.target.classList.contains('favorite-button')) {
+    toggleFavorite(evt);
+  }
+})
+
+favButtonPlayer.addEventListener('click', ()=>toggleFavorite(event))
+
+
+
