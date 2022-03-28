@@ -29,6 +29,8 @@ https://invis.io/DG12CQJQ9QPF#/463974083_Home
 - Material icons https://fonts.google.com/icons
 
 ### JS
+- Template tag https://blog.webdevsimplified.com/2020-06/template-tag/
+- Event hashchange https://developer.mozilla.org/fr/docs/Web/API/WindowEventHandlers/onhashchange
 
 ### Random
 - Semantic versioning (comment les numéros de version sont traités) https://semver.org/lang/fr/
